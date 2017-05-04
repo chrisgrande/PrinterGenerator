@@ -28,8 +28,13 @@ parser.add_argument('--version', help='Version number of Munki pkginfo. Optional
 parser.add_argument('--csv', help='Path to CSV file containing printer info. If CSV is provided, all other options are ignored.')
 args = parser.parse_args()
 
+script_path = os.path.dirname(os.path.realpath(__file__))
+try:
+    f = open(os.path.join(script_path, 'Printer-Template.plist'), 'rb')
+except IOError, ImportError:
+    print "Unable to open Printer-Template.plist!"
+    sys.exit(1)
 
-f = open('Printer-Template.plist', 'rb')
 templatePlist = readPlist(f)
 f.close()
 
