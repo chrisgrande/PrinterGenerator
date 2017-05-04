@@ -12,6 +12,8 @@
 	<string>DESCRIPTION</string>
 	<key>display_name</key>
 	<string>DISPLAY_NAME</string>
+	<key>icon_name</key>
+	<string>Printer.png</string>
 	<key>installcheck_script</key>
 	<string>#!/usr/bin/python
 import subprocess
