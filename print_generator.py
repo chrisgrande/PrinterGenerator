@@ -29,7 +29,7 @@ parser.add_argument('--csv', help='Path to CSV file containing printer info. If 
 args = parser.parse_args()
 
 
-f = open('AddPrinter-Template.plist', 'rb')
+f = open('Printer-Template.plist', 'rb')
 templatePlist = readPlist(f)
 f.close()
 
@@ -49,7 +49,7 @@ if args.csv:
             # First, change the plist keys in the pkginfo itself
             newPlist['display_name'] = row[2]
             newPlist['description'] = row[5]
-            newPlist['name'] = "AddPrinter_" + str(row[0]) # set to printer name
+            newPlist['name'] = "Printer_" + str(row[0]) # set to printer name
             # Default choice for versions for CSV is 1.0.
             newPlist['version'] = "1.0"
             # Check for a protocol listed in the address
@@ -83,7 +83,7 @@ if args.csv:
             # Now change the one variable in the uninstall_script
             newPlist['uninstall_script'] = newPlist['uninstall_script'].replace("PRINTERNAME", row[0])
             # Write out the file
-            newFileName = "AddPrinter-" + row[0] + "-1.0.pkginfo"
+            newFileName = "Printer-" + row[0] + "-1.0.pkginfo"
             f = open(newFileName, 'wb')
             writePlist(newPlist, f)
             f.close()
@@ -150,7 +150,7 @@ else:
    # root pkginfo variable replacement
     newPlist['description'] = description
     newPlist['display_name'] = displayName
-    newPlist['name'] = "AddPrinter_" + displayName.replace(" ", "")
+    newPlist['name'] = "Printer_" + displayName.replace(" ", "")
     newPlist['version'] = version
     # installcheck_script variable replacement
     newPlist['installcheck_script'] = templatePlist['installcheck_script'].replace("PRINTERNAME", args.printername)
@@ -169,7 +169,7 @@ else:
     # uninstall_script variable replacement
     newPlist['uninstall_script'] = templatePlist['uninstall_script'].replace("PRINTERNAME", args.printername)
 
-    newFileName = "AddPrinter-" + str(args.printername) + "-%s.pkginfo" % str(version)
+    newFileName = "Printer-" + str(args.printername) + "-%s.pkginfo" % str(version)
     f = open(newFileName, 'wb')
     writePlist(newPlist, f)
     f.close()
