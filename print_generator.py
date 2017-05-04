@@ -82,9 +82,12 @@ if args.csv:
             newPlist['postinstall_script'] = newPlist['postinstall_script'].replace("OPTIONS", theOptionString)
             # Now change the one variable in the uninstall_script
             newPlist['uninstall_script'] = newPlist['uninstall_script'].replace("PRINTERNAME", row[0])
+            # Make Output Folder
+            if not os.path.exists(os.path.join(script_path, 'Output')):
+    	        os.makedirs(os.path.join(script_path, "Output"))
             # Write out the file
-            f = open(newFileName, 'wb')
             newFileName = "Printer_" + row[0] + "-1.0.pkginfo"
+            f = open(os.path.join(script_path, 'Output', newFileName), 'wb')
             writePlist(newPlist, f)
             f.close()
 else:
