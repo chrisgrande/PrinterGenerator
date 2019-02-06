@@ -1,3 +1,4 @@
 *.pkginfo
 
 Printers.csv
+.DS_Store
