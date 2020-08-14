@@ -59,7 +59,7 @@ if args.csv:
             # First, change the plist keys in the pkginfo itself
             newPlist['display_name'] = row[2]
             newPlist['description'] = row[5]
-            newPlist['name'] = "AddPrinter_" + str(row[0]) # set to printer name
+            newPlist['name'] = "Printer_" + str(row[0]) # set to printer name
             # Check for an icon
             if row[9] != "":
                 newPlist['icon_name'] = row[9]
