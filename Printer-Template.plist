@@ -50,7 +50,7 @@ for option in lpoptLongOut.splitlines():
                 break
         if optionName == myOption:
             if not printerOptions[myOption].lower() == actualOptionValue.lower():
-                print "Found mismatch: %s is '%s', should be '%s'" % (myOption, printerOptions[myOption], actualOptionValue)
+                print("Found mismatch: %s is '%s', should be '%s'" % (myOption, printerOptions[myOption], actualOptionValue))
                 sys.exit(0)
 
 optionDict = {}                
@@ -65,7 +65,7 @@ for keyName in comparisonDict.keys():
     comparisonDict[keyName] = None if comparisonDict[keyName].strip() == "" else comparisonDict[keyName]
     optionDict[keyName] = None if optionDict[keyName].strip() == "" else optionDict[keyName]
     if not comparisonDict[keyName] == optionDict[keyName]:
-        print "Settings mismatch: %s is '%s', should be '%s'" % (keyName, optionDict[keyName], comparisonDict[keyName])
+        print("Settings mismatch: %s is '%s', should be '%s'" % (keyName, optionDict[keyName], comparisonDict[keyName]))
         sys.exit(0)
 
 sys.exit(1)</string>
@@ -74,7 +74,7 @@ sys.exit(1)</string>
 	<key>minimum_os_version</key>
 	<string>10.7.0</string>
 	<key>name</key>
-	<string>AddPrinter_DISPLAYNAME</string>
+	<string>Printer_DISPLAYNAME</string>
 	<key>postinstall_script</key>
 	<string>#!/usr/bin/python
 import subprocess
@@ -106,9 +106,14 @@ proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 (lpadminOut, lpadminErr) = proc.communicate()
 
 if lpadminErr:
-    print "Error: %s" % lpadminErr
-    sys.exit(1)
-print "Results: %s" % lpadminOut    
+    if "Printer drivers are deprecated" in lpadminErr:
+        # work around lpadmin deprecation message
+        print("Install successful - caught deprecation message; preventing exit 1")
+        pass
+    else:
+        print("Error: %s" % lpadminErr)
+        sys.exit(1)
+print("Results: %s" % lpadminOut    )
 sys.exit(0)</string>
 	<key>unattended_install</key>
 	<true/>
